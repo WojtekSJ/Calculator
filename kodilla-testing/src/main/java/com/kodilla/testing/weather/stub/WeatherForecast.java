@@ -69,7 +69,9 @@ public class WeatherForecast {
         }
         else {
             int position = medianList.size()/2;
-                return medianList.get(position);
+            int position2 = position - 1;
+
+                return (medianList.get(position)+medianList.get(position2))/2;
         }
     }
 }
