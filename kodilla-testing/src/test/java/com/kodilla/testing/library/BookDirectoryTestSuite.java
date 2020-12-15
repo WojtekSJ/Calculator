@@ -81,14 +81,23 @@ class BookDirectoryTestSuite {
     }
 
     @Test
-    void testListBooksWithConditionFragmentShorterThan3() {                          // [1]
+    void testListBooksWithConditionFragmentShorterThan3() {
+
+
+        // [1]
         // Given
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        //List<Book> resultListOf10Books = generateListOfNBooks(10);
+        //when(libraryDatabaseMock.listBooksWithCondition(anyString())).thenReturn(resultListOf10Books);
+        /*
         LibraryDatabase libraryDatabaseMock = mock(LibraryDatabase.class);            // [2]
         BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);               // [3]
         List<Book> resultListOf10Books = generateListOfNBooks(10);                    // [4]
-        when(libraryDatabaseMock.listBooksWithCondition(anyString()))                 // [5]
+        when(libraryDatabaseMock.listBooksWithCondition(anyString()))               // [5]
                 .thenReturn(resultListOf10Books);                                          // [6]
-
+*/
+        //
+        //LibraryDatabase libraryDatabaseMock = mock(LibraryDatabase.class);
         // When
         List<Book> theListOfBooks10 = bookLibrary.listBooksWithCondition("An");       // [7]
 
@@ -97,5 +106,32 @@ class BookDirectoryTestSuite {
         verify(libraryDatabaseMock, times(0)).listBooksWithCondition(anyString());    // [9]
     }
 
+
+    @Test// [1]
+    void testListBooksInHandsOf() {                                      // [2]
+
+        // Given
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);                  // [3]
+        LibraryUser Edek = new LibraryUser("Edek", "Chrzaszcz", "1234"); // 0 ksiazek
+        LibraryUser Franek = new LibraryUser("Franek", "Jakubiak", "2224"); // 1 ksiazek
+        LibraryUser Zbyszek = new LibraryUser("Zbyszek", "Kaczor", "5343"); // 5 ksiazek
+
+        List<Book> resultListOf0Books = new ArrayList<Book>();                           // [2]
+        List<Book> resultListOf1Books = generateListOfNBooks(1);                       // [3]
+        List<Book> resultListOf5Books = generateListOfNBooks(5);
+
+        when(libraryDatabaseMock.listBooksInHandsOf(Edek)).thenReturn(resultListOf0Books);// [13]
+        when(libraryDatabaseMock.listBooksInHandsOf(Franek)).thenReturn(resultListOf1Books);// [13]
+        when(libraryDatabaseMock.listBooksInHandsOf(Zbyszek)).thenReturn(resultListOf5Books);// [13]
+
+        // When
+        List<Book> booksRent0 = bookLibrary.listBooksInHandsOf(Edek);       // [14]
+        List<Book> booksRent1 = bookLibrary.listBooksInHandsOf(Franek);       // [14]
+        List<Book> booksRent5 = bookLibrary.listBooksInHandsOf(Zbyszek);       // [14]
+        // Then
+        assertEquals(0, booksRent0.size());
+        assertEquals(1, booksRent1.size());
+        assertEquals(5, booksRent5.size());
+    }
 
 }
