@@ -132,6 +132,7 @@ class BookDirectoryTestSuite {
         assertEquals(0, booksRent0.size());
         assertEquals(1, booksRent1.size());
         assertEquals(5, booksRent5.size());
+        verify(libraryDatabaseMock, times(1)).listBooksInHandsOf(Edek);
     }
 
 }
