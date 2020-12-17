@@ -2,6 +2,7 @@ package com.kodilla.stream.lambda;
 
 
 import com.kodilla.stream.beautifier.PoemBeautifier;
+import com.kodilla.stream.iterate.NumbersGenerator;
 import com.kodilla.stream.reference.FunctionalCalculator;
 
 public class StreamMain {
@@ -35,5 +36,8 @@ public class StreamMain {
         upiekrzacz.beautify("Obliczanie dlugosci", (tekst) -> tekst + " ma dlugosc " + tekst.length());
         upiekrzacz.beautify("Powtorz mnie dwa razy. ", (tekst) -> tekst.repeat(2));
 
+
+        System.out.println("Using Stream to generate even numbers from 1 to 20");
+        NumbersGenerator.generateEven(20);
     }
 }
