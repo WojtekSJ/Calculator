@@ -7,6 +7,7 @@ public class ForumUser {
     public ForumUser(final String username, final String realName) {
         this.username = username;
         this.realName = realName;
+
     }
 
     public String getUsername() {

@@ -1,43 +1,39 @@
-package com.kodilla.stream.lambda;
+package com.kodilla.stream;
 
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.iterate.NumbersGenerator;
-import com.kodilla.stream.reference.FunctionalCalculator;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
+
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamMain {
 
     public static void main(String[] args) {
-        Processor processor = new Processor();                                // [6]
-        ExecuteSaySomething executeSaySomething = new ExecuteSaySomething();  // [7]
-        processor.execute(executeSaySomething);
-        Executor codeToExecute = () -> System.out.println("This is an Lambda example.");
-        processor.execute(codeToExecute);
+        /*BookDirectory theBookDirectory = new BookDirectory();
+        String theResultStringOfBooks = theBookDirectory.getList().stream()  // [1]
+                .filter(book -> book.getYearOfPublication() > 2005)
+                .map(Book::toString)
+                .collect(Collectors.joining(",\n","<<",">>"));                    // [2]
+
+        System.out.println(theResultStringOfBooks);*/
+
+        Forum forumAudii = new Forum();
+       // System.out.println(forumAudii.getUserList());
 
 
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();       // [5]
-        System.out.println("Calculating expressions with lambdas");
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);           // [6]
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);           // [7]
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);           // [8]
-        expressionExecutor.executeExpression(10, 5, (a, b) -> (a / b) + 2);
-
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
-
-        PoemBeautifier upiekrzacz = new PoemBeautifier();
-        upiekrzacz.beautify("Moj pierwszy", (tekst) -> tekst + " -> abs");
-        upiekrzacz.beautify("ZAMIana NA Male", (tekst) -> tekst + " //zmieniamy wielkosc liter// " + tekst.toLowerCase());
-        upiekrzacz.beautify("Zmiana na duze", (tekst) -> tekst + " //zmieniamy wielkosc liter// " + tekst.toUpperCase());
-        upiekrzacz.beautify("Dodanie liter przed i po.", (tekst) -> " A " + tekst + " Z");
-        upiekrzacz.beautify("Obliczanie dlugosci", (tekst) -> tekst + " ma dlugosc " + tekst.length());
-        upiekrzacz.beautify("Powtorz mnie dwa razy. ", (tekst) -> tekst.repeat(2));
 
 
-        System.out.println("Using Stream to generate even numbers from 1 to 20");
-        NumbersGenerator.generateEven(20);
+        Map<Integer, ForumUser> theResultMapOfUser = forumAudii.getUserList().stream()
+                .filter(user -> user.getGender() == 'M')
+                .filter(user -> 2020 - user.getDateOfBirth().getYear() >= 20)
+                .filter(user -> user.getNumberOfPosts() > 0)
+                .collect(Collectors.toMap(ForumUser::getID, ForumUser -> ForumUser));
+
+        System.out.println("# elements: " + theResultMapOfUser.size());             // [2]
+        theResultMapOfUser.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue().getUserName() + " Born: " +
+                        entry.getValue().getDateOfBirth() + " number of posts: " + entry.getValue().getNumberOfPosts())                   // [3]
+                .forEach(System.out::println);
     }
 }
