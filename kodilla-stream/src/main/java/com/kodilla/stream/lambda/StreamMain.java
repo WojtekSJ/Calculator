@@ -4,6 +4,7 @@ package com.kodilla.stream;
 import com.kodilla.stream.forumuser.Forum;
 import com.kodilla.stream.forumuser.ForumUser;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -20,13 +21,15 @@ public class StreamMain {
 
         Forum forumAudii = new Forum();
        // System.out.println(forumAudii.getUserList());
+        LocalDate dateToday = LocalDate.now();
+        //System.out.println(dateToday);
 
 
 
 
         Map<Integer, ForumUser> theResultMapOfUser = forumAudii.getUserList().stream()
                 .filter(user -> user.getGender() == 'M')
-                .filter(user -> 2020 - user.getDateOfBirth().getYear() >= 20)
+                .filter(user -> dateToday.getYear() - user.getDateOfBirth().getYear() >= 20)
                 .filter(user -> user.getNumberOfPosts() > 0)
                 .collect(Collectors.toMap(ForumUser::getID, ForumUser -> ForumUser));
 
