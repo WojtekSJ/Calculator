@@ -7,7 +7,7 @@ import java.util.Set;
 public class World {
     public Set<Continent> listOfContinents = new HashSet<>();
     private String worldName;
-    BigDecimal totalPopulation = new BigDecimal("0");
+
 
     public World(Set<Continent> listOfContinents, String worldName) {
         this.listOfContinents = listOfContinents;
@@ -24,7 +24,7 @@ public class World {
                 .map(Country::getPeopleQuantity)                       // [4]
                 .reduce(BigDecimal.ZERO, (sum, current) -> sum = sum.add(current));
 
-        //return totalPopulation;
+
 
     }
 }

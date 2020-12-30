@@ -55,10 +55,6 @@ public class WorldTestSuite {
         //When
 
         BigDecimal totalPopulation = Earth.getPeopleQuantity();
-        /*
-        BigDecimal totalSand = continents.stream()                              // [1]
-                .map(SandStorage::getSandBeansQuantity)                              // [2]
-                .reduce(BigDecimal.ZERO, (sum, current) -> sum = sum.add(current));  // [3]*/
 
         //Then
         BigDecimal expectedTotalPopulation = new BigDecimal("90000045");      // [4]
