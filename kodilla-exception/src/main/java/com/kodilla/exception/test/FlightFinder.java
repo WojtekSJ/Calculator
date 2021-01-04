@@ -18,11 +18,16 @@ public class FlightFinder {
         searchFlight.put("Bydgoszcz", true);
         searchFlight.put("Lubin", false);
 
-        for (Map.Entry<String, Boolean> entry : searchFlight.entrySet()) {
+        /*for (Map.Entry<String, Boolean> entry : searchFlight.entrySet()) {
             if (flight.arrivalAirport.equals(entry.getKey()) && entry.getValue()) {
                 routeFound++;
             }
+        }*/
+        if(searchFlight.containsKey(flight.getArrivalAirport()) && searchFlight.get(flight.getArrivalAirport())) {
+            routeFound++;
         }
+
+
         if (routeFound > 0) {
             return true;
         } else {
