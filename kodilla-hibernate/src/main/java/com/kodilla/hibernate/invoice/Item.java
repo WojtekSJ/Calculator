@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class Item {
     private java.math.BigDecimal price;
     private Integer quantity;
     private BigDecimal value;
-   // private Invoice invoice;
+    private Invoice invoice;
    public Item(){}
 
     public Item(BigDecimal price, Integer quantity) {
@@ -28,6 +29,14 @@ public class Item {
         BigDecimal result = this.price.multiply(BigDecimal.valueOf(this.quantity));
         this.value = result;
         System.out.println("This value is: " + this.value);
+    }
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "INVOICE_ID")
+    public Invoice getInvoice() {
+        return invoice;
+    }
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Id
@@ -54,7 +63,7 @@ public class Item {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_ID")
     public Product getProduct() {
         return product;
