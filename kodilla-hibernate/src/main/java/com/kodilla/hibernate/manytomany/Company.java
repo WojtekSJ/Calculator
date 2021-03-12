@@ -4,7 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
+@NamedNativeQuery(
+        name = "Company.retrieveByCompanyFragment",
+        query = "SELECT * FROM COMPANIES" +
+                " WHERE company_name LIKE :COMPANY_NAME",
+        resultClass = Company.class
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {

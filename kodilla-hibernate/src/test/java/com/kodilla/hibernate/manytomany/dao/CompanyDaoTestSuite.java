@@ -2,9 +2,12 @@ package com.kodilla.hibernate.manytomany.dao;
 
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
+import com.kodilla.hibernate.task.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +16,8 @@ class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -58,5 +63,58 @@ class CompanyDaoTestSuite {
         //} catch (Exception e) {
         //    //do nothing
         //}
+    }
+    @Test
+    void testHQLSerachByName() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        String searchedName = "Smith";
+
+        //When
+        List<Employee> foundNames = employeeDao.retrieveEmployeeWithLastname(searchedName);
+       /* for(Employee temp: foundNames) {
+            System.out.println(temp.getLastname());
+        }*/
+        foundNames.stream()
+                .map(s -> s.getLastname())
+                .forEach(System.out::println);
+
+        //Then
+        assertEquals(1, foundNames.size());
+
+    }
+
+    @Test
+    void testHQLSerachByCompany() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        String name = "%at%";
+
+        //When
+        List<Company> foundNames = companyDao.retrieveByCompanyFragment(name);
+       /* for(Employee temp: foundNames) {
+            System.out.println(temp.getLastname());
+        }*/
+        foundNames.stream()
+                .map(s -> s.getName())
+                .forEach(System.out::println);
+
+        //Then
+        assertEquals(2, foundNames.size());
+
     }
 }

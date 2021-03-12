@@ -1,10 +1,17 @@
 package com.kodilla.hibernate.manytomany;
 
+import com.kodilla.hibernate.task.Task;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
+@NamedNativeQuery(
+        name = "Employee.retrieveEmployeeWithLastname",
+        query = "SELECT * FROM EMPLOYEES" +
+                " WHERE lastname = :LASTNAME",
+        resultClass = Employee.class
+)
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
