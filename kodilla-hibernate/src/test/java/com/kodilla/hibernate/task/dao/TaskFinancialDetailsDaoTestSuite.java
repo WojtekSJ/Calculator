@@ -129,13 +129,14 @@ class TaskFinancialDetailsDaoTestSuite {
 
         //Then
         try {
+            //CleanUp
+            taskListDao.deleteById(id);
+        } finally {
             assertEquals(4, longTasks.size());
             assertEquals(5, shortTasks.size());
             assertEquals(6, enoughTimeTasks.size());
             assertEquals(6, durationLongerThanTasks.size());
-        } finally {
-            //CleanUp
-            taskListDao.deleteById(id);
         }
+
     }
 }
