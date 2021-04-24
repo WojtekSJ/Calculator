@@ -110,6 +110,7 @@ class CompanyDaoTestSuite {
             System.out.println(temp.getLastname());
         }*/
         foundNames.stream()
+                //.map(s -> s.getName())
                 .map(s -> s.getName())
                 .forEach(System.out::println);
 

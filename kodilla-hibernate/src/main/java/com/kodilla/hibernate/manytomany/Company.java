@@ -10,6 +10,7 @@ import java.util.List;
                 " WHERE company_name LIKE :COMPANY_NAME",
         resultClass = Company.class
 )
+
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
