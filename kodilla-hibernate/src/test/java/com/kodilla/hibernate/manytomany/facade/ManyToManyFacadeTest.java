@@ -19,7 +19,7 @@ public class ManyToManyFacadeTest {
     @Test
     void testSerachByNameEmployee() {
         //Given
-        String searchedName = "%Smit%";
+        String searchedName = "Smit";
         List<Employee> foundNames = new ArrayList<>();
         //When
         try {
@@ -36,7 +36,7 @@ public class ManyToManyFacadeTest {
     @Test
     void testSerachByNameNotFoundEmployee() {
         //Given
-        String searchedName = "%Smith33%";
+        String searchedName = "Smith33";
         List<Employee> foundNames = new ArrayList<>();
         //When
         try {
@@ -54,7 +54,7 @@ public class ManyToManyFacadeTest {
     @Test
     void testSerachByCompanyByPartialName() {
         //Given
-        String searchedName = "%at%";
+        String searchedName = "at";
         List<Company> foundNames = new ArrayList<>();
         //When
         try {
