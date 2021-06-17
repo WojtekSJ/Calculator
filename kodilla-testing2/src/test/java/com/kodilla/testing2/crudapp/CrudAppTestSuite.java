@@ -54,13 +54,29 @@ public class CrudAppTestSuite {
         String taskName = crateCrudAppTestTask();
         sendTestTaskToTrello(taskName);              // [2]
         assertTrue(checkTaskExistsInTrello(taskName));   // [1]
+        cleanCrudList(taskName);
     }
+
+    private void cleanCrudList(String taskName) throws InterruptedException{
+        driver.findElements(
+                By.xpath("//form[@class=\"datatable__row\"]")).stream()           // [3]
+                .filter(anyForm ->                                             // [4]
+                        anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]")) // [5]
+                                .getText().equals(taskName))                        // [6]
+                .forEach(theForm -> {
+                    WebElement selectElement = theForm.findElement(By.xpath(".//button[4]"));    // [8]
+                    selectElement.click();                                  // [13]
+                });
+        System.out.println("Powinien skasowac" + taskName);
+        Thread.sleep(4000);
+    }
+
     private void sendTestTaskToTrello(String taskName) throws InterruptedException{
         driver.navigate().refresh();                                         // [1]
 
         while(!driver.findElement(By.xpath("//select[1]")).isDisplayed());   // [2]
         Thread.sleep(5000);
-        System.out.println("Driver start");
+        //System.out.println("Driver start");
         driver.findElements(
                 By.xpath("//form[@class=\"datatable__row\"]")).stream()           // [3]
                 .filter(anyForm ->                                             // [4]
@@ -70,7 +86,7 @@ public class CrudAppTestSuite {
                     WebElement selectElement = theForm.findElement(By.xpath(".//select[1]"));    // [8]
                     Select select = new Select(selectElement);                 // [9]
                     select.selectByIndex(1);                                   // [10]
-                        System.out.println("rozpoczete 5 s w petli");
+                        //System.out.println("rozpoczete 5 s w petli");
                     WebElement buttonCreateCard =                              // [11]
                             theForm.findElement(By.xpath(".//button[contains(@class, \"card-creation\")]")); // [12]
                     buttonCreateCard.click();                                  // [13]
@@ -96,7 +112,7 @@ public class CrudAppTestSuite {
         driverTrello.findElement(By.id("password")).sendKeys("Mojewlasne1!");		    // [7]
         driverTrello.findElement(By.id("login-submit")).submit();
         Thread.sleep(6000);
-        System.out.println("zaraz kliknie");
+        //System.out.println("zaraz kliknie");
         Thread.sleep(6000);								                            // [8]
 
 
@@ -106,7 +122,7 @@ public class CrudAppTestSuite {
 
 
 
-        System.out.println("powinien kliknac");
+        //System.out.println("powinien kliknac");
         Thread.sleep(4000);								                            // [12]
 
         result = driverTrello.findElements(By.xpath("//span")).stream()		        // [13]
